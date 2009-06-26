@@ -13,16 +13,15 @@ def unpack(s):
 def pack(n):
   return ''.join([chr(n >> 8 * i & 255) for i in range(16)])
 
-def onetimeauth_poly1305(m, rk):
-  if len(rk) != 32: raise ValueError('Invalid Poly1305 key')
-  r = unpack(rk[:16]) & 0x0ffffffc0ffffffc0ffffffc0fffffff
-  k = unpack(rk[16:])
+def onetimeauth_poly1305(m, k):
+  if len(k) != 32: raise ValueError('Invalid Poly1305 key')
+  r = unpack(k[:16]) & 0x0ffffffc0ffffffc0ffffffc0fffffff
 
   h = 0
   for i in range(0, len(m), 16):
     c = limb(m[i:i+16])
     h = (h + c) * r % P
-  h += k
+  h += unpack(k[16:])
 
   return pack(h)
 
