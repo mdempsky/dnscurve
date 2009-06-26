@@ -1,6 +1,6 @@
 from util import xor, randombytes
 from salsa20 import stream_salsa20
-from hash import hash_sha512, auth_hmacsha512, auth_hmacsha512_verify
+from sha512 import hash_sha512, auth_hmacsha512, auth_hmacsha512_verify
 from curve25519 import smult_curve25519, smult_curve25519_base
 
 __all__ = ['secretbox_salsa20hmacsha512', 'secretbox_salsa20hmacsha512_open', 'box_curve25519salsa20hmacsha512_keypair', 'box_curve25519salsa20hmacsha512', 'box_curve25519salsa20hmacsha512_open', 'box_curve25519salsa20hmacsha512_beforenm', 'box_curve25519salsa20hmacsha512_afternm', 'box_curve25519salsa20hmacsha512_open_afternm']
