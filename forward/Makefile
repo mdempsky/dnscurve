@@ -1,4 +1,6 @@
-CFLAGS=-Wall -ggdb -std=c99
+NACLINC=
+NACLLD=
+CFLAGS=-Wall -ggdb -std=c99 $(NACLINC)
 TARGETS=forward udpserver dnscurve-keygen dnscurve-test-client base32-test
 
 targets: $(TARGETS)
@@ -7,16 +9,16 @@ clean:
 	rm -f *.o $(TARGETS)
 
 dnscurve-test-client: dnscurve-test-client.o randombytes.o ip_parse.o dns_packet.o base32.o
-	gcc $(CFLAGS) -o dnscurve-test-client dnscurve-test-client.o randombytes.o ip_parse.o dns_packet.o base32.o -lnacl
+	gcc $(CFLAGS) -o dnscurve-test-client dnscurve-test-client.o randombytes.o ip_parse.o dns_packet.o base32.o $(NACLLD) -lnacl
 
 forward: forward.o dns_packet.o base32.o randombytes.o ip_parse.o dns_random.o
-	gcc $(CFLAGS) -o forward forward.o dns_packet.o base32.o randombytes.o ip_parse.o dns_random.o -lpthread -lnacl -lrt
+	gcc $(CFLAGS) -o forward forward.o dns_packet.o base32.o randombytes.o ip_parse.o dns_random.o -lpthread $(NACLLD) -lnacl -lrt
 
 udpserver: udpserver.o ip_parse.o
 	gcc $(CFLAGS) -o udpserver udpserver.o ip_parse.o
 
 dnscurve-keygen: dnscurve-keygen.o base32.o randombytes.o
-	gcc $(CFLAGS) -o dnscurve-keygen dnscurve-keygen.o base32.o randombytes.o -lnacl
+	gcc $(CFLAGS) -o dnscurve-keygen dnscurve-keygen.o base32.o randombytes.o $(NACLLD) -lnacl
 
 base32-test: base32-test.o base32.o
 	gcc $(CFLAGS) -o base32-test base32-test.o base32.o
