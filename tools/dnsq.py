@@ -50,7 +50,7 @@ if pubkey:
     key = nacl.box_curve25519xsalsa20poly1305_beforenm(pubkey, mykey)
     nonce1 = open('/dev/urandom').read(12)
     box = nacl.box_curve25519xsalsa20poly1305_afternm(query, nonce1 + 12 * '\0', key)
-    if zone:
+    if zone is not False:
         query = dnscurve.dnscurve_encode_txt_query(nonce1, box, mypubkey, zone)
     else:
         query = dnscurve.dnscurve_encode_streamlined_query(nonce1, box, mypubkey)
@@ -58,7 +58,7 @@ s.send(query)
 
 response = s.recv(4096)
 if pubkey:
-    if zone:
+    if zone is not False:
         nonce2, box = dnscurve.dnscurve_decode_txt_response(response)
     else:
         nonce2, box = dnscurve.dnscurve_decode_streamlined_response(response)
