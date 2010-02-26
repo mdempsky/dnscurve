@@ -11,7 +11,7 @@
 
 <rfc category='std' ipr='trust200902' docName='draft-dempsky-dnscurve-01'>
 <front>
-<title abbrev='DNSCurve: Link-level security for DNS'>DNSCurve: Link-level security for the Domain Name System</title>
+<title abbrev='DNSCurve: Link-Level Security for DNS'>DNSCurve: Link-Level Security for the Domain Name System</title>
 
 <author initials='M.' surname='Dempsky' fullname='Matthew Dempsky'>
 <organization>OpenDNS, Inc.</organization>
@@ -117,7 +117,7 @@ the server's original DNS response.
 </t>
 </section>
 
-<section title='Base-32 encoding'>
+<section title='Base-32 Encoding'>
 <t>
 Sometimes DNSCurve communicates arbitrary byte strings inside domain
 names. While the DNS protocol is 8-bit safe for names and labels
@@ -197,7 +197,7 @@ strings in domain names.
 </section>
 </section>
 
-<section anchor='pubkeys' title='Encoding public keys in name server names'>
+<section anchor='pubkeys' title='Encoding Public Keys in Name Server Names'>
 <t>
 DNSCurve public keys are encoded in name server names as a 54-byte
 label consisting of the magic string "uz5" followed by the first 51
@@ -237,7 +237,7 @@ and their respective DNSCurve public keys:
 
 </section>
 
-<section title='Nonce generation'>
+<section title='Nonce Generation'>
 <t>
 For every request, DNSCurve clients generate a 96-bit nonce, and for
 every response, DNSCurve servers generate a 96-bit nonce extension.
@@ -268,7 +268,7 @@ only odd nonces.
 </t>
 </section>
 
-<section title='DNSCurve expanded formats'>
+<section title='DNSCurve Expanded Formats'>
 <t>
 DNSCurve defines two expanded formats: "streamlined" and "TXT". Each
 includes a format for expanded queries and a format for expanded
@@ -279,7 +279,7 @@ DNSCurve expanded queries in either format and MUST send expanded
 responses using the corresponding format.
 </t>
 
-<section title='Streamlined format'>
+<section title='Streamlined Format'>
 <t>
 An expanded query packet in streamlined format has the following bytes:
 <list style='symbols'>
@@ -305,7 +305,7 @@ public key. However, it does repeat the client's nonce.
 </t>
 </section>
 
-<section title='TXT format'>
+<section title='TXT Format'>
 <t>
 The "TXT" format receives its name from the fact that expanded query
 and response packets in this format appear to casual inspection to be
@@ -412,7 +412,7 @@ then it MAY silently discard the response.
 </t>
 </section>
 
-<section title='Security considerations'>
+<section title='Security Considerations'>
 <t>
 The security of the Curve25519XSalsa20Poly1305 cryptosystem and its
 underlying cryptographic primitives is discussed in <xref
@@ -427,7 +427,7 @@ and responses relayed by untrusted DNS proxies and caches.
 </t>
 </section>
 
-<section title='IANA considerations'>
+<section title='IANA Considerations'>
 <t>
 This document has no actions for IANA.
 </t>
@@ -437,7 +437,7 @@ This document has no actions for IANA.
 
 <back>
 
-<references title='Normative references'>
+<references title='Normative References'>
 &RFC2119;
 
 <reference anchor='naclcrypto'>
@@ -454,7 +454,7 @@ This document has no actions for IANA.
 </reference>
 </references>
 
-<references title='Informative references'>
+<references title='Informative References'>
 &rfc4648;
 </references>
 
