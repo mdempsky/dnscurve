@@ -14,6 +14,19 @@
 # If `zone` is provided, it tells dnsq.py to use the TXT format for
 # DNSCurve and to use the specified zone.
 
+# Examples:
+#
+# Send a DNS query for "hello.x.dempsky.org" to 70.85.31.66:
+#     $ python dnsq.py txt hello.x.dempsky.org 70.85.31.66
+#
+# Send the same query as a DNSCurve query in streamlined format:
+#     $ python dnsq.py txt hello.x.dempsky.org 70.85.31.66 \
+#         uz5p4utwsxu5p3r9xrw0ygddw2hxh7bkhd0vdwtbt92lf058ny1p79
+#
+# Send the same query as a DNSCurve query in TXT format:
+#     $ python dnsq.py txt hello.x.dempsky.org 70.85.31.66 \
+#         uz5p4utwsxu5p3r9xrw0ygddw2hxh7bkhd0vdwtbt92lf058ny1p79 dempsky.org
+
 import sys
 import socket
 import getopt
