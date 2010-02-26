@@ -1,5 +1,6 @@
 import struct
 import binascii
+import re
 
 qtypes = {1: 'A',
           2: 'NS',
@@ -26,7 +27,6 @@ def dns_name_read(rest, p):
       break
     elif b < 64:
       output.append(rest[1:1+b])
-      output.append('.')
       rest = rest[1+b:]
       continue
     elif b >= 192:
@@ -39,9 +39,13 @@ def dns_name_read(rest, p):
     else:
       raise ValueError('Bad DNS name')
 
+  def repl(matchobj):
+    return '\\%03o' % ord(matchobj.group(0)[0])
+  name = '.'.join([re.sub('[^0-9A-Za-z_-]', repl, l) for l in output])
+
   if firstcompress is not None:
-    return (''.join(output), firstcompress)
-  return (''.join(output), rest)
+    return (name, firstcompress)
+  return (name, rest)
 
 def dns_query_read(rest, p):
   (name, rest) = dns_name_read(rest, p)
@@ -146,11 +150,9 @@ def dns_build_query(type, host):
 
   output.append('\x42\x76\x01\x00\x00\x01\x00\x00\x00\x00\x00\x00')
 
-  name = host.split('.')
-  for n in name:
-    if len(n):
-      output.append(chr(len(n)))
-      output.append(n)
+  for label in dns_domain_fromdot(host):
+    output.append(chr(len(label)))
+    output.append(label)
   output.append(chr(0))
 
   try:
@@ -162,3 +164,8 @@ def dns_build_query(type, host):
   output.append('\x00\x01')
 
   return ''.join(output)
+
+def dns_domain_fromdot(host):
+  def repl(matchobj):
+    return chr(int(matchobj.group(0)[1:], 8))
+  return [re.sub(r'\\[0-7]{1,3}', repl, l) for l in host.split('.') if l]
