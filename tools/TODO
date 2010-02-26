@@ -1,0 +1,8 @@
+Things to add to dnsq.py:
+ - Timeout and retry failed queries.
+ - Retry via TCP if UDP response has TC bit set.
+ - Source port randomization.
+ - Transaction id randomization.
+ - Discard (with warning) irrelevent response packets and continue waiting.
+ - Support pretty printing more record types.
+ - Add more dig-like functionality.
