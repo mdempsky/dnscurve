@@ -60,23 +60,26 @@ def dns_result_read(rest, p):
   return ((name, qtypes.get(qtype, '??'), qclasses.get(qclass, '??'), ttl, data), rest[rdlen:])
 
 def dns_pretty_rdata(type, qclass, data, p):
+  # Classless record types
+  if type == 'NS' or type == 'PTR' or type == 'CNAME':
+    (name, rest) = dns_name_read(data, p)
+    if len(rest): raise ValueError('Bad DNS record data')
+    return name
+  if type == 'MX':
+    (pref,) = struct.unpack('>H', data[:2])
+    (name, rest) = dns_name_read(data[2:], p)
+    if len(rest): raise ValueError('Bad DNS record data')
+    return '%d\t%s' % (pref, name)
+  if type == 'SOA':
+    (mname, rest) = dns_name_read(data, p)
+    (rname, rest) = dns_name_read(rest, p)
+    (serial, refresh, retry, expire, minimum) = struct.unpack('>5I', rest)
+    return '%s\t%s\t%d\t%d\t%d\t%d\t%d' % (mname, rname, serial, refresh, retry, expire, minimum)
+
+  # Internet class record types
   if qclass == 'IN':
     if type == 'A':
       return '%d.%d.%d.%d' % struct.unpack('>4B', data)
-    if type == 'NS' or type == 'PTR' or type == 'CNAME':
-      (name, rest) = dns_name_read(data, p)
-      if len(rest): raise ValueError('Bad DNS record data')
-      return name
-    if type == 'MX':
-      (pref,) = struct.unpack('>H', data[:2])
-      (name, rest) = dns_name_read(data[2:], p)
-      if len(rest): raise ValueError('Bad DNS record data')
-      return '%d\t%s' % (pref, name)
-    if type == 'SOA':
-      (mname, rest) = dns_name_read(data, p)
-      (rname, rest) = dns_name_read(rest, p)
-      (serial, refresh, retry, expire, minimum) = struct.unpack('>5I', rest)
-      return '%s\t%s\t%d\t%d\t%d\t%d\t%d' % (mname, rname, serial, refresh, retry, expire, minimum)
     if type == 'AAAA':
       return '%x:%x:%x:%x:%x:%x:%x:%x' % struct.unpack('>8H', data)
     if type == 'SRV':
