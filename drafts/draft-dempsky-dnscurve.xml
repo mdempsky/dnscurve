@@ -439,7 +439,6 @@ This document has no actions for IANA.
 
 <references title='Normative references'>
 &RFC2119;
-&rfc4648;
 
 <reference anchor='naclcrypto'>
 <front>
@@ -453,6 +452,10 @@ This document has no actions for IANA.
 </front>
 <format type='html' target='http://cr.yp.to/papers.html#naclcrypto' />
 </reference>
+</references>
+
+<references title='Informative references'>
+&rfc4648;
 </references>
 
 </back>
