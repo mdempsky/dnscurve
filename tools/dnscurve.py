@@ -25,11 +25,11 @@ def dnscurve_decode_streamlined_query(packet):
 def dnscurve_encode_streamlined_response(nonce, box):
   if len(nonce) != 24:
     raise ValueError('Invalid nonce')
-  return 'R6fnvWj8' + nonce + box
+  return 'R6fnvWJ8' + nonce + box
 
 def dnscurve_decode_streamlined_response(packet):
-  if len(packet) < 32 or packet[:8] != 'R6fnvWj8':
-    raise ValueError('Not a streamlined query')
+  if len(packet) < 32 or packet[:8] != 'R6fnvWJ8':
+    raise ValueError('Not a streamlined response')
   return (len[8:32], len[32:])
 
 
