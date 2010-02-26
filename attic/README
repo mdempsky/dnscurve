@@ -1,0 +1,2 @@
+nacl-python.patch adds the Python NaCl bindings to NaCl; however, it's
+written for an outdated version of NaCl (20080914, not 20090405).
