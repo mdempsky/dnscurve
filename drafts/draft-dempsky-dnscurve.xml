@@ -9,7 +9,7 @@
 <?rfc compact='yes'?>
 <?rfc subcompact='no'?>
 
-<rfc category='std' ipr='trust200902' docName='draft-dempsky-dnscurve-00'>
+<rfc category='std' ipr='trust200902' docName='draft-dempsky-dnscurve-01'>
 <front>
 <title abbrev='DNSCurve: Link-level security for DNS'>DNSCurve: Link-level security for the Domain Name System</title>
 
