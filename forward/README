@@ -1,0 +1,8 @@
+DNSCurve forwarder
+
+This directory contains a prototype DNSCurve forwarder.  Currently it
+only supports UDP transport, and it also relies on Linux's epoll(2)
+system call.
+
+Faried Nawaz has written instructions on how to install and setup the
+forwarder at http://marc.info/?l=djbdns&m=124905592501607&w=2.
