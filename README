@@ -11,4 +11,6 @@ particular, it contains:
 
   - tools: A set of DNS and DNSCurve-related tools.
 
+  - drafts: Internet-Drafts related to DNSCurve.
+
   - attic: Old code that needs updating.
