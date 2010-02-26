@@ -4,3 +4,9 @@ for working with DNS and DNSCurve.
 The most interesting place to start is dnsq.py, which it a dig-like
 DNS query tool with DNSCurve capability.  See the documentation at the
 top of dnsq.py for instructions on its use.
+
+You will need "nacl" or "slownacl" in your Python load path to use
+some of these tools.  The easiest way to do this right now is to
+simply symlink the slownacl directory into this one, e.g.:
+
+    $ ln -s ../slownacl ./
