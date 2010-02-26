@@ -156,21 +156,24 @@ dns_curve_request_parse(uint8_t *plaintext, unsigned *plaintextlen,
     memcpy(nonce, fullnonce, 12);
     memcpy(plaintext, nonce_and_box + 32, nonce_and_box_len - 32);
     *plaintextlen = nonce_and_box_len - 32;
-    return 2;
+    return 1;
   }
 
   // First two bytes are the client selected transaction id
   uint16_t transid;
   memcpy(&transid, buffer, 2);
 
-  if (memcmp(buffer + 2, "\x00" // query, opcode 0, not authoritative, not
-                                // truncated, recursion not desired
-                         "\x00" // recursion not available, no Z bits, RCODE 0
+  // query, opcode 0, not authoritative, not truncated;
+  // recursion may or may not be desired
+  if ((buffer[2] & ~1) != 0)
+    return 0;
+
+  if (memcmp(buffer + 3, "\x00" // recursion not available, no Z bits, RCODE 0
                          "\x00\x01"  // exactly one question
                          "\x00\x00"  // no answer records
                          "\x00\x00"  // no authority records
                          "\x00\x00", // no additional records
-                         10))
+                         9))
     return 0;
 
   uint8_t queryname[4096];
@@ -210,13 +213,13 @@ dns_curve_request_parse(uint8_t *plaintext, unsigned *plaintextlen,
   if (-1 == crypto_box_curve25519xsalsa20poly1305_open
       (nonce_and_box, nonce_and_box, nonce_and_box_len, fullnonce,
        public_key, global_secret_key))
-    return -1;
+    return 0;
 
   memcpy(nonce, fullnonce, 12);
   memcpy(plaintext, nonce_and_box + 32, nonce_and_box_len - 32);
   *plaintextlen = nonce_and_box_len - 32;
 
-  return 1;
+  return buffer[2] ? 3 : 2;
 }
 
 int

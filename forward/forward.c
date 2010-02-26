@@ -45,7 +45,8 @@ struct txidentry {
   uint16_t source_txid;
   uint16_t target_txid;
 
-  uint8_t is_dnscurve; /* 0 is not, 1 is TXT, 2 is streamlined */
+  /* 0 is plain DNS, 1 is streamlined, 2 is TXT with RD=0, 3 is TXT with RD=1 */
+  uint8_t is_dnscurve;
 
   // The following are only valid if @is_dnscurve is non-zero
   uint8_t public_key[32];
@@ -332,7 +333,7 @@ dns_reply(uint8_t *packet, unsigned length, struct txidentry *entry) {
 
   unsigned pos = 0;
 
-  if (entry->is_dnscurve == 2) {
+  if (entry->is_dnscurve == 1) {
     if (!buffer_append(wrapper, sizeof(wrapper), &pos, "R6fnvWJ8", 8))
       return;
     if (!buffer_append(wrapper, sizeof(wrapper), &pos, nonce, 24))
@@ -347,13 +348,21 @@ dns_reply(uint8_t *packet, unsigned length, struct txidentry *entry) {
     if (!buffer_append(wrapper, sizeof(wrapper), &pos, &entry->source_txid, 2))
       return;
     if (!buffer_append(wrapper, sizeof(wrapper), &pos,
-                       "\x84"  // response, opcode 0, authoritative,
-                               // not truncated, recursion not desired
-                       "\x00"  // recursion not available, no Z bits, RCODE 0
-                       "\x00\x01"   // one question
-                       "\x00\x01"  // one answer
-                       "\x00\x00"  // no authority
-                       "\x00\x00", // no additional
+		       (entry->is_dnscurve == 2)
+		       ? ("\x84" // response, opcode 0, authoritative,
+			         // not truncated, recursion not desired
+			  "\x00" // recursion not available, no Z bits, RCODE 0
+			  "\x00\x01"   // one question
+			  "\x00\x01"   // one answer
+			  "\x00\x00"   // no authority
+			  "\x00\x00")  // no additional
+		       : ("\x85" // response, opcode 0, authoritative,
+			         // not truncated, recursion desired
+			  "\x00" // recursion not available, no Z bits, RCODE 0
+			  "\x00\x01"   // one question
+			  "\x00\x01"   // one answer
+			  "\x00\x00"   // no authority
+			  "\x00\x00"), // no additional
                        10))
       return;
     if (!buffer_append(wrapper, sizeof(wrapper), &pos,
