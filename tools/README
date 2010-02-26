@@ -1,2 +1,6 @@
 This directory contains a hodgepodge of different Python code snippets
 for working with DNS and DNSCurve.
+
+The most interesting place to start is dnsq.py, which it a dig-like
+DNS query tool with DNSCurve capability.  See the documentation at the
+top of dnsq.py for instructions on its use.
