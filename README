@@ -1,0 +1,14 @@
+Random DNSCurve code
+
+This project is a collection of various DNSCurve-related code.  In
+particular, it contains:
+
+  - slownacl: A pure Python implementation of the NaCl Python API. For
+      more details about NaCl, see http://nacl.cace-project.eu/.
+      WARNING: This library is not resistant to timing attacks.
+
+  - forward: A DNSCurve forwarder implementation.
+
+  - tools: A set of DNS and DNSCurve-related tools.
+
+  - attic: Old code that needs updating.
