@@ -420,6 +420,13 @@ If a server builds a response within the payload size limit,
 but then cannot fit the encoded response in 4096 bytes,
 it MAY silently discard the response.
 </t>
+<t>
+Even when DNSCurve transactions take place over UDP, they may still be
+vulnerable to denial-of-service attacks due to spoofed IP fragments if
+response packets are large enough to require IP fragmentation.
+Therefore, servers SHOULD try to keep response packets within the
+path's MTU limits.
+</t>
 </section>
 
 <section title='Security Considerations'>
