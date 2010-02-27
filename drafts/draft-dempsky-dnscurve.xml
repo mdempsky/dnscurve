@@ -48,12 +48,13 @@ overhead and a mostly backwards-compatible format intended for use
 with strict firewalls and DNS proxies.
 </t>
 <t>
-DNSCurve packets include a cryptographic MAC to provide integrity and
-availability. Clients can be confident that verified responses came
-from the appropriate server and were not forged by a blind or even
-sniffing attacker, while servers can be confident that responses will
-not be replayed against other unintended clients. Additionally,
-DNSCurve packets are encrypted to provide some confidentiality.
+DNSCurve packets include a cryptographic MAC (aka authenticator) to
+provide integrity and availability. Clients can be confident that
+verified responses came from the appropriate server and were not
+forged by a blind or even sniffing attacker, while servers can be
+confident that responses will not be replayed against other unintended
+clients. Additionally, DNSCurve packets are encrypted to provide some
+confidentiality.
 </t>
 
 <section title='Terminology'>
