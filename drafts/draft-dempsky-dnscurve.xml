@@ -43,9 +43,9 @@ to the Domain Name System (DNS).
 DNSCurve adds link-level security to the Domain Name System (DNS). It
 includes a key distribution mechanism compatible with today's name
 server software and registry services, and two packet formats: a
-simple streamlined format requiring minimal packet overhead and a
-mostly backwards-compatible format intended for use with strict
-firewalls and DNS proxies.
+simple streamlined format requiring minimal space and processing
+overhead and a mostly backwards-compatible format intended for use
+with strict firewalls and DNS proxies.
 </t>
 <t>
 DNSCurve packets include a cryptographic MAC to provide integrity and
