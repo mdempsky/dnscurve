@@ -333,8 +333,8 @@ the query name constructed from the concatenation of the following
 labels:
 <list style='symbols'>
 <t>
-One or more labels, each label before the last being exactly 50 bytes,
-the last label being at most 50 bytes. The concatenation of these
+One or more labels, each label except the last being exactly 50 bytes,
+with the last label being at most 50 bytes. The concatenation of these
 labels is the base-32 encoding of a 96-bit client-selected nonce for
 this packet followed by a cryptographic box containing the original
 DNS query packet.
