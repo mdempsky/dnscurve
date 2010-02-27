@@ -110,10 +110,10 @@ responds to the packet as a normal DNS packet.
 Assuming the unboxing succeeds, then the server discovers the client's
 original query packet. To send a response, the server chooses a nonce
 extension to append to the client-chosen nonce, and protects its
-response packet in a cryptographic box using the same keys and the
-extended nonce. The server then encodes this cryptographic box as an
-expanded DNSCurve response packet, which it sends to the DNSCurve
-client instead of the original DNS response.
+response packet in a cryptographic box using the extend nonce and same
+keys used to unbox the client's DNS query. The server then encodes
+this cryptographic box as an expanded DNSCurve response packet, which
+it sends to the DNSCurve client instead of the original DNS response.
 </t>
 <t>
 Meanwhile, the DNSCurve client waits for an expanded DNSCurve response
