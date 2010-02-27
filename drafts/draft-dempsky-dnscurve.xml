@@ -89,7 +89,7 @@ anchors and DLV are possible, but not defined by this document.)
 </t>
 <t>
 When a DNSCurve client is about to send a DNS query to a name server,
-if the client knows a DNSCurve public key for that name server, it can
+if the client knows a DNSCurve public key for that name server, it MAY
 instead use that public key along with its own DNSCurve secret key and
 a nonce to protect its query in a "cryptographic box" as described in
 <xref target='naclcrypto' />. The client then encodes this
