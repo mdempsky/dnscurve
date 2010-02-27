@@ -253,11 +253,11 @@ and their respective DNSCurve public keys:
 For every request, DNSCurve clients generate a 96-bit nonce, and for
 every response, DNSCurve servers generate a 96-bit nonce extension.
 Nonces MUST be unique for distinct packets for the same client-server
-key pair. A simple way to achieve this is to choose a unique nonce
-for each packet and for each retransmission. Additionally, servers
-MUST use a non-zero nonce extension (because nonces are zero extended
-in query packets). Clients and servers may otherwise generate nonces
-however they choose.
+key pair. A simple way to achieve this is to choose a unique nonce for
+each packet and for each retransmission. Additionally, servers MUST
+use a non-zero nonce extension (because nonces are zero extended in
+query packets). However, subject to these constraints, clients and
+servers may generate nonces however they choose.
 </t>
 <t>
 Two recommended ways to generate a 96-bit nonce or nonce extension are
@@ -274,8 +274,8 @@ restarts or the system clock jumps backwards.
 If multiple clients or multiple servers share a DNSCurve secret key,
 then they MUST make sure no two separate clients or servers generate
 the same nonce. A simple way to achieve this is to use nonce
-separation; e.g., one server uses only even nonces and the other uses
-only odd nonces.
+separation; e.g., if two servers share a DNSCurve key pair, one server
+could use only even nonces and the other could use only odd nonces.
 </t>
 </section>
 
