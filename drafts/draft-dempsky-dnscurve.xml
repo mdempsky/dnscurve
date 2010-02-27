@@ -321,7 +321,7 @@ public key. However, it does repeat the client's nonce.
 The "TXT" format receives its name from the fact that expanded query
 and response packets in this format appear to casual inspection to be
 standard DNS packets with two possible exceptions: 1) the query name
-exceed 255 bytes and 2) the total packet may exceed 512 bytes.
+may exceed 255 bytes and 2) the total packet may exceed 512 bytes.
 </t>
 <t>
 When encoding an expanded query packet in TXT format, a DNSCurve
