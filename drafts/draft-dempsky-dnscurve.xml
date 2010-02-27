@@ -397,9 +397,9 @@ packet as a UDP packet. DNSCurve clients are required to set aside a
 4096-byte buffer for receiving a UDP response packet.
 </t>
 <t>
-If the original DNS response packet is above 512 bytes then it is
-replaced by an explicitly truncated packet and the truncated packet is
-protected by DNSCurve. In this case the client tries again by TCP,
+If the original DNS response packet is larger than 512 bytes then it
+is replaced by an explicitly truncated packet and the truncated packet
+is protected by DNSCurve. In this case the client tries again by TCP,
 sending its DNSCurve query packet through TCP and receiving the
 DNSCurve response through TCP.
 </t>
@@ -417,8 +417,8 @@ before encoding as a DNSCurve response packet.
 Clients MUST reduce the payload size they advertise to account for overhead
 from encoding the response as an expanded response packet.
 If a server builds a response within the payload size limit,
-but cannot fit the encoded response in 4096 bytes,
-then it MAY silently discard the response.
+but then cannot fit the encoded response in 4096 bytes,
+it MAY silently discard the response.
 </t>
 </section>
 
@@ -434,6 +434,13 @@ public-key authenticated-encryption scheme using nonces.
 DNSCurve only provides link-level security between a client-server
 pair.  It does not attempt to ensure end-to-end security for queries
 and responses relayed by untrusted DNS proxies and caches.
+</t>
+<t>
+DNSCurve clients are free to choose whether or not to use DNSCurve on
+a per query basis; e.g., a client may decide to fallback to standard
+DNS after a few failed DNSCurve queries.  Of course, DNSCurve cannot
+make any security guarantees for transactions that do not use
+DNSCurve, so clients are encouraged to use DNSCurve if possible.
 </t>
 </section>
 
