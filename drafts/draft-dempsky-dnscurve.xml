@@ -74,36 +74,39 @@ authenticators.
 <t>
 Each DNSCurve client and server has a secret key and a corresponding
 public key. DNSCurve servers distribute their public keys by encoding
-them in name server names embedded in standard DNS NS records.
-DNSCurve clients distribute their public keys by including them in
-their query packets.
+them in name server names embedded in standard DNS NS records (as
+described in <xref target="pubkeys"/>), while DNSCurve clients
+distribute their public keys by including them in their query packets.
+(Additional mechanisms for key distribution like DNSSEC's trust
+anchors and DLV are possible, but not defined by this document.)
 </t>
 <t>
 When a DNSCurve client is about to send a DNS query to a name server,
-if the name contains a DNSCurve public key, it can instead use this
-public key along with its own secret key and a nonce to protect its
-query in a "cryptographic box" as described in <xref
-target='naclcrypto' />. The client then encodes this cryptographic box
-along with the nonce and its own public key as an expanded DNSCurve
-query packet, which it sends to the DNSCurve server.
+if the client knows a DNSCurve public key for that name server, it can
+instead use that public key along with its own DNSCurve secret key and
+a nonce to protect its query in a "cryptographic box" as described in
+<xref target='naclcrypto' />. The client then encodes this
+cryptographic box along with the nonce and its own public key as an
+expanded DNSCurve query packet, which it sends to the DNSCurve server
+instead of the original DNS query.
 </t>
 <t>
-Upon receiving a DNS query packet, a DNSCurve name server first checks
-if it appears to be an expanded DNSCurve query packet. If not, then it
-responds normally. Otherwise, it extracts the client's DNSCurve public
-key, nonce, and boxed query, and attempts to open the box using the
-public key and nonce and its own secret key. If this fails (i.e., the
-authenticator is invalid), then the packet is not an expanded DNSCurve
-query packet, and the server responds as a normal DNS query.
+Upon receiving a DNS query packet, a DNSCurve name server should first
+treat the packet as a DNSCurve query packet by extracting the client's
+DNSCurve public key, nonce, and boxed query and trying to open the box
+using the extracted public key and its own secret key. However, if
+this fails (i.e., the packet is not formatted as an expanded DNSCurve
+query packet or the box's authenticator is invalid), then the server
+responds to the packet as a normal DNS packet.
 </t>
 <t>
-Otherwise, if the unboxing succeeds, then the server discovers the
-client's original query packet. To send a response, the server chooses
-a nonce extension to append to the client-chosen nonce, and protects
-its response packet in a cryptographic box using the same keys and the
+Assuming the unboxing succeeds, then the server discovers the client's
+original query packet. To send a response, the server chooses a nonce
+extension to append to the client-chosen nonce, and protects its
+response packet in a cryptographic box using the same keys and the
 extended nonce. The server then encodes this cryptographic box as an
 expanded DNSCurve response packet, which it sends to the DNSCurve
-client.
+client instead of the original DNS response.
 </t>
 <t>
 Meanwhile, the DNSCurve client waits for an expanded DNSCurve response
