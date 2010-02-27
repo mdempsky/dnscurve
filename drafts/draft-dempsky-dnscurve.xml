@@ -55,12 +55,19 @@ sniffing attacker, while servers can be confident that responses will
 not be replayed against other unintended clients. Additionally,
 DNSCurve packets are encrypted to provide some confidentiality.
 </t>
+
+<section title='Terminology'>
 <t>
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
 "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
 document are to be interpreted as described in RFC 2119
 <xref target='RFC2119' />.
 </t>
+<!--
+Define "cryptographic box", "authenticator", "public key", "secret
+key", etc?
+-->
+</section>
 </section>
 
 <section title='Overview'>
