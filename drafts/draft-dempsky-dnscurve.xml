@@ -450,6 +450,12 @@ DNS after a few failed DNSCurve queries.  Of course, DNSCurve cannot
 make any security guarantees for transactions that do not use
 DNSCurve, so clients are encouraged to use DNSCurve if possible.
 </t>
+<t>
+DNSCurve adds some confidentiality by encrypting DNS packet contents
+but does not attempt to hide the length of the original DNS packet nor
+the source or destination of the packet.  Additionally, the TXT format
+requires clients to reveal the zone they are querying.
+</t>
 </section>
 
 <section title='IANA Considerations'>
