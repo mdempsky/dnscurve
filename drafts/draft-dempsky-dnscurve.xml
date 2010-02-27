@@ -327,7 +327,7 @@ may exceed 255 bytes and 2) the total packet may exceed 512 bytes.
 When encoding an expanded query packet in TXT format, a DNSCurve
 client MUST create a DNS standard query packet with the AA, TC, RD,
 RA, Z, and RCODE bits cleared, a single entry in the question section,
-and no records in the answer, authority records, or additional records
+and no records in the answer, authority, or additional records
 sections. The one question MUST be an Internet class question for TXT
 records for the query name constructed from the concatenation of the
 following labels:
