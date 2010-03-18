@@ -466,13 +466,16 @@ This document has no actions for IANA.
 
 <section title='Acknowledgements'>
 <t>
-The DNSCurve protocol was first introduced by Dan Berstein. Thanks
+The DNSCurve protocol was first introduced by Dan Bernstein. Thanks
 also to Adam Langley and George Barwood for their contributions to
 early DNSCurve implementations.
 </t>
 <t>
-Much thanks for feedback regarding this draft from George Barwood,
-Sjoerd Langkemper and Nikos Mavrogiannopoulos.
+Much thanks for feedback regarding this draft from
+George Barwood,
+Sjoerd Langkemper,
+Nikos Mavrogiannopoulos,
+and Leo Vandewoestijne.
 </t>
 </section>
 
