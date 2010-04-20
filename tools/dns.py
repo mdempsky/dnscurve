@@ -108,11 +108,11 @@ def dns_print(p):
   if f1 & 0x78:
     flags.append('weird-op')
   if f1 & 4:
-    flags.append('authoriative')
+    flags.append('authoritative')
   if f1 & 2:
     flags.append('truncated')
   if f1 & 1:
-    flags.append('recursion-requested')
+    flags.append('recursion-desired')
 
   if f2 & 0x80:
     flags.append('recursion-avail')
