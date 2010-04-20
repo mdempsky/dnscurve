@@ -131,6 +131,7 @@ def dns_print(p):
 
   print ';; DNS packet:', ' '.join(flags)
   print ';; Status:', status
+  print ';; Id:', id
   print ';; QUERY: %d, ANSWER: %d, AUTHORITY: %d, ADDITIONAL: %d' % (nquery, nans, nauth, nadd)
   print
 
@@ -151,7 +152,8 @@ def dns_print(p):
 def dns_build_query(type, host):
   output = []
 
-  output.append('\x42\x76\x01\x00\x00\x01\x00\x00\x00\x00\x00\x00')
+  output.append(open('/dev/urandom').read(2))
+  output.append('\x01\x00\x00\x01\x00\x00\x00\x00\x00\x00')
 
   for label in dns_domain_fromdot(host):
     output.append(chr(len(label)))

@@ -56,27 +56,32 @@ if pubkey:
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 s.connect((server, 53))
 
-query = dns.dns_build_query(type, name)
+query0 = dns.dns_build_query(type, name)
 if pubkey:
     mykey = open('/dev/urandom').read(32)
     mypubkey = nacl.smult_curve25519_base(mykey)
     key = nacl.box_curve25519xsalsa20poly1305_beforenm(pubkey, mykey)
     nonce1 = open('/dev/urandom').read(12)
-    box = nacl.box_curve25519xsalsa20poly1305_afternm(query, nonce1 + 12 * '\0', key)
+    box = nacl.box_curve25519xsalsa20poly1305_afternm(query0, nonce1 + 12 * '\0', key)
     if zone is not False:
         query = dnscurve.dnscurve_encode_txt_query(nonce1, box, mypubkey, zone)
     else:
         query = dnscurve.dnscurve_encode_streamlined_query(nonce1, box, mypubkey)
+else:
+    query = query0
 s.send(query)
 
 response = s.recv(4096)
 if pubkey:
     if zone is not False:
+        if query[:2] != response[:2]:
+            raise "Response transaction ID (DNSCurve TXT) didn't match"
         nonce2, box = dnscurve.dnscurve_decode_txt_response(response)
     else:
         nonce2, box = dnscurve.dnscurve_decode_streamlined_response(response)
     if nonce2[:12] != nonce1:
         raise "Response nonce didn't match"
     response = nacl.box_curve25519xsalsa20poly1305_open_afternm(box, nonce2, key)
-
+if query0[:2] != response[:2]:
+    raise "Response transaction ID (DNS) didn't match"
 dns.dns_print(response)

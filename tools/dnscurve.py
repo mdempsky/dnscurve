@@ -36,7 +36,8 @@ def dnscurve_decode_streamlined_response(packet):
 
 def dnscurve_encode_txt_query(nonce, box, pubkey, zone):
   output = []
-  output.append('\x42\x76\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00')
+  output.append(open('/dev/urandom').read(2))
+  output.append('\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00')
 
   for label in dnscurve_encode_queryname(nonce, box, pubkey, zone):
     output.append(chr(len(label)))
