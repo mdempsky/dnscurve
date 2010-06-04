@@ -128,7 +128,8 @@ tx_socket_get() {
   memset(&sin, 0, sizeof(sin));
   sin.sin_family = AF_INET;
 
-  for (unsigned i = 0; i < 10; ++i) {
+  unsigned i;
+  for (i = 0; i < 10; ++i) {
     uint16_t port = 1025 + dns_random(64510);
     sin.sin_port = htons(port);
 
@@ -454,8 +455,9 @@ curve_worker() {
     const uint8_t *qname;
     unsigned qnamelen;
     uint8_t public_key[32], nonce[12];
+    unsigned i;
 
-    for (unsigned i = 0; i < r; ++i) {
+    for (i = 0; i < r; ++i) {
       if (events[i].data.ptr == NULL) {
         // This is the world facing, DNS curve, UDP socket
 

@@ -43,9 +43,10 @@ main() {
   printf("DNS public key: %s\n", dnspublic);
 
   static const char hextable[] = "0123456789abcdef";
+  unsigned i;
 
   char hexpublic[65];
-  for (unsigned i = 0; i < 32; ++i) {
+  for (i = 0; i < 32; ++i) {
     hexpublic[i*2    ] = hextable[public[i] >> 4];
     hexpublic[i*2 + 1] = hextable[public[i] & 15];
   }
@@ -53,7 +54,7 @@ main() {
   printf("Hex public key: %s\n", hexpublic);
 
   char hexprivate[65];
-  for (unsigned i = 0; i < 32; ++i) {
+  for (i = 0; i < 32; ++i) {
     hexprivate[i*2    ] = hextable[private[i] >> 4];
     hexprivate[i*2 + 1] = hextable[private[i] & 15];
   }
