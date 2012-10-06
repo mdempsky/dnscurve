@@ -82,4 +82,4 @@ def stream_xsalsa20(l, n, k):
   return stream_salsa20(l, n[16:], core_hsalsa20(n[:16], k))
 
 def stream_xsalsa20_xor(m, n, k):
-  return xor(m, stream_xsalsa20_xor(len(m), n, k))
+  return xor(m, stream_xsalsa20(len(m), n, k))
